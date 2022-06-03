@@ -12,7 +12,7 @@ Rank : 공동 3위 (총 8팀)
 - 'SEOUL COMMERCE PORTAL' 을 통해 특정 지역에서의 각 업종들의 강점을 쉽게 알아볼 수 있으며, 해당 상권의 유동 인구와 분기별 매출액, 소비자의 성별 비율, 프랜차이즈 비율 등 세부적인 지표까지 확인해 볼 수 있다.
 
 ## 데이터
-- '서울 열린데이터 광장' 상권 데이터 이용.
+- '서울 열린데이터 광장' 상권 데이터 이용
   - [서울 열린데이터 광장](https://data.seoul.go.kr/)
 - Dataset Feature 목록
   - 유동인구 수
@@ -66,6 +66,14 @@ $$Score_{scaled}=\frac{Score-Score_{min}}{Score_{max}-Score_{min}}$$
 - 유망상권에도 적용하여 유리한 상권 선정에 도움이 될 것으로 보인다.
 - 업종을 변경하려는 자영업자, 일반인 또한 다양한 정보 확인을 통해 서울 상권 및 업종에 대한 내용에 쉽게 접근할 수 있다.
 - 더 다양한 데이터(권리금, 임차료, 현금매출정보 등)를 수집한다면 더 정확한 상권 정보를 제공할 수 있을 것으로 보인다.
+
+## 프레임워크
+- Python3 Flask
+- SB Admin 2
+- Bootstrap 4
+- Font Awesome 5
+- jQuery
+- chart.js
 
 ## 데모 웹페이지 링크
 - ~~[SEOUL COMMERCE PORTAL](http://ericacap.ddns.net)~~ (EXPIRED)
