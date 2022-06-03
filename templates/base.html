@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }}</title>
+
+    <!-- Custom fonts for this template-->
+    <script src="https://kit.fontawesome.com/abac2f8c19.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ url_for('static', filename='css/sb-admin-2.css') }}" rel="stylesheet">
+    <!-- <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet"> -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.js') }}"></script> -->
+    <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/chartjs-plugin-annotation.min.js') }}"></script> -->
+
+    <!-- mathJax -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: { inlineMath: [['$', '$']], displayMath: [['$$', '$$']] }
+        });
+    </script>
+    <script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+</head>
+
+<body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" style="height: unset;">
+                <div class="sidebar-brand-icon">
+                    <img src="{{ url_for('static', filename='img/logo_black.png') }}" alt="" style='height: 80%; width: 80%; object-fit: contain'>
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fas fa-fw fa-bar-chart"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="compare.html">
+                    <i class="fas fa-fw fa-reorder"></i>
+                    <span>Compare</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="map.html">
+                    <i class="fas fa-fw fa-map-marker"></i>
+                    <span>Map</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" 
+                        method="get" action="/dashboard.html">
+                        <div class="input-group">
+                            <select id="guSelect" class="form-select mr-2" aria-label="gu" name="gu">
+                                {% if gu == "" %}
+                                <option selected disabled>구 선택</option>
+                                {% else %}
+                                <option selected>{{ gu }}</option>
+                                {% endif %}
+                                {% for gu in guList %}
+                                <option>{{ gu }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="dongSelect" class="form-select mr-2" aria-label="dong" name="dong">
+                                {% if dong == "" %}
+                                <option selected disabled>동 선택</option>
+                                {% else %}
+                                <option selected>{{ dong }}</option>
+                                {% endif %}
+                                {% for dong in dongList %}
+                                <option>{{ dong }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="districtSelect" class="form-select mr-2" aria-label="district" name="district">
+                                {% if district == "" %}
+                                <option selected disabled>상권명 선택</option>
+                                {% else %}
+                                <option selected>{{ district }}</option>
+                                {% endif %}
+                                {% for district in districts %}
+                                <option>{{ district }}</option>
+                                {% endfor %}
+                            </select>
+                            <select id="categorySelect" class="form-select mr-2" aria-label="category" name="category">
+                                {% if category == "" %}
+                                <option selected disabled>업종명 선택</option>
+                                {% else %}
+                                <option selected>{{ category }}</option>
+                                {% endif %}
+                                {% for category in categories %}
+                                <option>{{ category }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="input-group-append">
+                                <button id="searchBtn" class="btn btn-primary disabled" type="submit" disabled>
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </nav>
+                <!-- End of Topbar -->
+{% block content %}{% endblock %}
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Hanyang university ERICA Campus IME Capstone Design Team SKEPPHY 2022</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <script type="text/javascript">
+
+        //상권, 업종 셀렉터 변경 jquery
+
+        (function($) {
+            // Populates a select drop-down with options in a list 
+            $.fn.populate = function(list) {
+                return this.append(list.map(item => $('<option>', {
+                    text: item
+                })));
+            };
+        })(jQuery);
+
+        (function($) {
+            // Populates a select drop-down with options in a list 
+            $.fn.populateDisabled = function(list) {
+                return this.append(list.map(item => $('<option>', {
+                    selected: true,
+                    disabled: true,
+                    text: item
+                })));
+            };
+        })(jQuery);
+
+        $(function() {
+            $('#guSelect').on('change', function() {
+                $.ajax({
+                    url: "/getDongList",
+                    data: {gu:$('#guSelect option:selected').text()},
+                    method: "GET",
+                    dataType: "script"
+                })
+                .done(function(script) {
+                    $('#dongSelect').empty().populateDisabled(['동 선택']).populate(eval(script));
+                    $('#searchBtn').addClass('disabled');
+                    $('#searchBtn').attr('disabled', true);
+                });
+            });
+        })
+
+        $(function() {
+            $('#dongSelect').on('change', function() {
+                $.ajax({
+                    url: "/getDistricts",
+                    data: {dong:$('#dongSelect option:selected').text()},
+                    method: "GET",
+                    dataType: "script"
+                })
+                .done(function(script) {
+                    $('#districtSelect').empty().populateDisabled(['상권명 선택']).populate(eval(script));
+                    $('#searchBtn').addClass('disabled');
+                    $('#searchBtn').attr('disabled', true);
+                });
+            });
+        })
+
+        $(function() {
+            $('#districtSelect').on('change', function() {
+                $.ajax({
+                    url: "/getCategories",
+                    data: {district:$('#districtSelect option:selected').text()},
+                    method: "GET",
+                    dataType: "script"
+                })
+                .done(function(script) {
+                    $('#categorySelect').empty().populateDisabled(['업종명 선택']).populate(eval(script));
+                    $('#searchBtn').addClass('disabled');
+                    $('#searchBtn').attr('disabled', true);
+                });
+            });
+        })
+
+        $(function() {
+            $('#categorySelect').on('change', function() {
+                if ($('#categorySelect option:selected').text() == "업종명 선택") {
+                    $('#searchBtn').addClass('disabled');
+                    $('#searchBtn').attr('disabled', true);
+                }
+                else {
+                    $('#searchBtn').removeClass('disabled');
+                    $('#searchBtn').attr('disabled', false);
+                }
+            });
+        })
+
+        if ($('#categorySelect option:selected').text() == "업종명 선택") {
+            $('#searchBtn').addClass('disabled');
+            $('#searchBtn').attr('disabled', true);
+        }
+        else {
+            $('#searchBtn').removeClass('disabled');
+            $('#searchBtn').attr('disabled', false);
+        }
+    </script>
+</body>
+
+</html>
